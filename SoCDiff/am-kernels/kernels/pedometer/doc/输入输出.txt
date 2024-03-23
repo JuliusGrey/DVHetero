@@ -1,0 +1,14 @@
+输入掩码：
+    1001001000101100
+输出掩码
+    100000000000000
+
+
+
+
+Input2 acceleration_x IB13
+Input4 acc_avg_x  IB0
+Input8 acceleration_y  IB15
+Input10 acc_avg_y IB2
+Input15  acceleration_z  IB6
+Input17  acc_avg_z IB7

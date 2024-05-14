@@ -13,7 +13,7 @@ class CGRAFullMask extends Module {
     val outputs = Output(Vec(cgraParam.colNum, UInt((cgraParam.width + 1).W)))
   })
 
-  val outQueue = List.fill(cgraParam.colNum)(Module(new Queue(UInt(cgraParam.width.W), 20)))
+  val outQueue = List.fill(cgraParam.colNum)(Module(new Queue(UInt(cgraParam.width.W), 85)))
 
   //调用CGRATop中的相关参数
   val synInInst = Module(new SynInMask(cgraParam.colNum, cgraParam.width, dataW))
@@ -30,7 +30,7 @@ class CGRAFullMask extends Module {
     io.outputs(i) := cgraInst.io.outputs(i)
 
   })
-  val addrIsW = io.CGRAIO.addr >= "h02010000".U && io.CGRAIO.addr <= "h02010000".U + (8 * 8).U
+  val addrIsW = io.CGRAIO.addr >= "h02010000".U && io.CGRAIO.addr < "h02010000".U + (8 * 8).U
   //  val oneHList1 = (0 until synInInst.io.dataIn.size).map { i =>
   //    ("h02010000".U + (8 * i).U) === io.CGRAIO.addr
   //  }.toList
@@ -83,4 +83,12 @@ class CGRAFullMask extends Module {
     oneHList2,
     outQueue.map { i => i.io.deq.bits }
   )
+}
+
+
+object cgraful extends App {
+
+  chisel3.Driver.execute(args,() => new CGRAFullMask )
+
+
 }

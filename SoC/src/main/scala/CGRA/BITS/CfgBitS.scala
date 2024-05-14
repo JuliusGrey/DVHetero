@@ -223,9 +223,9 @@ object CfgBitS {
     file.write("\nCfgMessage\n")
     cfgMessList.map(i => {
       if(i._2 >0) {
-        file.write("0x" + (i._1.toLong << 32 | i._2).toHexString + ",\n")
+        file.write("{0x" + (i._1.toLong << 32 | i._2).toHexString + ",0,0,0},\n")
       }else if(i._2 <0){
-        file.write("0x" + i._1.toLong.toHexString + i._2.toHexString + ",\n")
+        file.write("{0x" + i._1.toLong.toHexString + i._2.toHexString + ",0,0,0},\n")
       }
     } )
     file.close
@@ -260,7 +260,7 @@ object CfgBitS {
 
 
 object zhengzetest extends App {
-   val bench = "gemm"
+   val bench = "pedometer"
   val arc = "FC16161281"
 
 

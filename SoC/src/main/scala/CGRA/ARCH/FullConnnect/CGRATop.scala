@@ -222,7 +222,7 @@ object CGRAFCGen {
       val opListRow = new ListBuffer[List[OPC.OPC]]()
       (0 until 8).map {
         i =>
-          opListRow.append(List(OPC.ADD, OPC.MUL , OPC.SUB,OPC.OR, OPC.XOR, OPC.ACC))
+          opListRow.append(List(OPC.ADD, OPC.MUL , OPC.SUB,OPC.OR, OPC.XOR, OPC.ACC,OPC.PASS))
       }
       opListBuf.append(opListRow.toList)
     }
@@ -234,7 +234,7 @@ object CGRAFCGen {
 }
 
 object CGRAGenAPP extends App {
-  infooutput("CGRAFC882441.scala", CGRAFCGen.CGRAFCModule)
-  chisel3.Driver.execute(args, () => topGen(CGRAFCGen.CGRAFCModule, "CGRAFC882441.txt")) //生成verilog
-  dumpIR(CGRAFCGen.CGRAFCModule, "CGRAFC882441.xml", "CGRA")
+  infooutput("CGRAFC16161281.scala", CGRAFCGen.CGRAFCModule)
+  chisel3.Driver.execute(args, () => topGen(CGRAFCGen.CGRAFCModule, "CGRAFC16161281.txt")) //生成verilog
+  dumpIR(CGRAFCGen.CGRAFCModule, "CGRAFC16161281.xml", "CGRA")
 }

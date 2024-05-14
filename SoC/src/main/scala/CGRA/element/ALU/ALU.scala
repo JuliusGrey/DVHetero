@@ -81,7 +81,7 @@ val inputRstArray = ops.map{
     (op.id.U -> (
       op match {
 //        case OPC.PASS => inputsWire(0)
-        case OPC.PASS => 0.U
+        case OPC.NULL => 0.U
         case OPC.ADD => Cat(en,(inputsWire(0)(width - 1 , 0) +  inputsWire(1)(width - 1 , 0)))
         case OPC.SUB => Cat(en,(inputsWire(0)(width - 1 , 0) -  inputsWire(1)(width - 1 , 0)))
         case OPC.MUL => {
@@ -110,7 +110,8 @@ val inputRstArray = ops.map{
         case OPC.NE => Cat(en,(inputsWire(0)(width - 1 , 0) =/=  inputsWire(1)(width - 1 , 0)))
         case OPC.LE => Cat(en,(inputsWire(0)(width - 1 , 0) >=  inputsWire(1)(width - 1 , 0)))
         case OPC.LT => Cat(en,(inputsWire(0)(width - 1 , 0) <  inputsWire(1)(width - 1 , 0)))
-        case OPC.SEL => Cat(en && inputsWire(2)(width),Mux(inputsWire(2)(width - 1 , 0)(0),inputsWire(1)(width - 1 , 0),inputsWire(0)(width - 1 , 0)))
+//        case OPC.SEL => Cat(en && inputsWire(2)(width),Mux(inputsWire(2)(width - 1 , 0)(0),inputsWire(1)(width - 1 , 0),inputsWire(0)(width - 1 , 0)))
+        case OPC.PASS => inputsWire(0)
         case OPC.ACC => {
           if(hasAcc){
             val accins = Module(new Acc)

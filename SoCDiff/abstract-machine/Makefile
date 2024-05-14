@@ -1,4 +1,4 @@
-# AM_HOME   = /mnt/e/project/DVHetero/SoCDiff/abstract-machine
+AM_HOME   = /mnt/e/project/cpusim/abstract-machine
 WORK_DIR  = $(shell pwd)
 DST_DIR   = $(WORK_DIR)/build
 

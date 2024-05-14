@@ -80,7 +80,7 @@ class SynInMask(CGRAPortNum : Int , wCGRA:Int , wRISCV : Int) extends Module{
     val selHig = i.U === adrGenInst.io.sel2 && !lastNoValid
     val data = Mux(selLow, io.dataIn(wCGRA - 1, 0), io.dataIn(2 * wCGRA - 1, wCGRA))
     val validWhenRst = (selLow| selHig) && dataRst
-    withReset((dataRst && ! validWhenRst)|| reset.asBool()) {
+    withReset((dataRst && ! (validWhenRst &&io.valid) )|| reset.asBool()) {
       readyList(i) := ((!outValidsWire(i)||validWhenRst) && noWait && mask(i))
       inDatasWire(i) := RegEnable(data, 0.U, io.valid && (!outValidsWire(i)||validWhenRst) && noWait &&(selLow || selHig)&&mask(i))
       outValidsWire(i) := RegEnable(io.valid, false.B, (!outValidsWire(i)||validWhenRst) && io.valid && noWait&&(selLow || selHig)&&mask(i))

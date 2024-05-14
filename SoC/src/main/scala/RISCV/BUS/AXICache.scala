@@ -8,7 +8,7 @@ import RISCV.common.Param.{AXIID, addrW, dataW}
 class AXICache extends Module{
   val io = IO (new Bundle {
 
-    val axiIO = new AXIIO
+    val axiIO = new AXIIO(64,32,4)
     val cache =  Flipped(new cacheIO(dataW,addrW))
 
   } )

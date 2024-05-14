@@ -75,10 +75,12 @@ class arbitInport extends Bundle {
 class adresPortArbit(portNum : Int) extends Module{
   val io = IO(new  Bundle {
     val regEn = Input(Bool())
+    val batchBgein = Input(Bool())
     val in =  Vec(portNum ,new (arbitInport) )
     val  dmaEn = Input(Bool())
     val out = Output(UInt(addrW.W))
   })
+  dontTouch(io.in)
     //每一个端口都对应一组所有端口的有效信号和索引
   val validList = io.in.map(_.valid)
   val validListArbit = List.fill(portNum)(Wire(Vec(portNum,Bool())))
@@ -100,7 +102,7 @@ class adresPortArbit(portNum : Int) extends Module{
     indexReg := RegEnable(
       indexWire,
       0.U(log2Up(portNum).W),
-      io.regEn
+      io.regEn || io.batchBgein
     )
   }
 
@@ -114,7 +116,7 @@ class adresPortArbit(portNum : Int) extends Module{
     0.U,
     porMuxList
   )
-  indexWire := Mux(selOut + 1.U  === portNum.U , 0.U , selOut + 1.U )
+  indexWire :=  Mux(selOut + 1.U  === portNum.U , 0.U , selOut + 1.U )
 
 //进行地址选择
   io.out := RegEnable(
@@ -126,7 +128,7 @@ class adresPortArbit(portNum : Int) extends Module{
       }
     ),
     0.U,
-    io.regEn
+    io.regEn || io.batchBgein
   )
 
 

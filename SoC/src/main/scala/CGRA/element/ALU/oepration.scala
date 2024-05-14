@@ -11,7 +11,7 @@ import scala.collection.mutable.ListBuffer
 object OPC extends Enumeration {
   type OPC = Value
   // Operation Code
-  val PASS,    // passthrough from in to out
+  val NULL,    // passthrough from in to out
   ADD,     // add
   SUB,     // substrate
   MUL,     // multiply
@@ -34,7 +34,7 @@ object OPC extends Enumeration {
   //		SAT,		 // saturate value to a threshold
   //		MGE,		 // merge two data
   //		SPT,	   // split one data to two
-  SEL,
+  PASS,
   ACC= Value  // Select
 
   val numOPC = this.values.size
@@ -72,7 +72,7 @@ object OpInfo {
 //    }
 //  }
   val String2IntMap : Map[String,Int] = Map(
-  "PASS" -> PASS.id,
+  "NULL" -> NULL.id,
   "ADD" -> ADD.id,
   "SUB" -> SUB.id,
   "MUL" -> MUL.id,
@@ -87,7 +87,8 @@ object OpInfo {
   "NE" -> NE.id,
   "LT" -> LT.id,
   "LE" -> LE.id,
-  "SEL" -> SEL.id
+  "PASS" -> PASS.id,
+  "ACC" -> ACC.id
 )
 
 
@@ -115,7 +116,7 @@ object OpInfo {
   val OpInfoMap: Map[OPC.OPC, List[Int]] = Map(
     // OPC -> List(NumOperands, NumRes, Latency, Operands-Commutative)
     // latency including the register outside ALU
-    OPC.PASS -> List(1, 1, 1, 0),
+    OPC.NULL -> List(1, 1, 1, 0),
     OPC.ADD  -> List(2, 1, 1, 1),
     OPC.SUB  -> List(2, 1, 1, 0),
     OPC.MUL  -> List(2, 1, 1, 1),
@@ -135,7 +136,7 @@ object OpInfo {
     OPC.LT   -> List(2, 1, 1, 0),
     OPC.LE   -> List(2, 1, 1, 0),
     //		OPC.SAT  -> List(2, 1, 1, 0),
-    OPC.SEL  -> List(3, 1, 1, 0),
+    OPC.PASS  -> List(1, 1, 1, 0),
       OPC.ACC  -> List(1, 1, 1, 0)
   )
 

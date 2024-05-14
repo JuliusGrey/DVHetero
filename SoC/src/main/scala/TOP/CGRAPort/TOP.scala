@@ -11,7 +11,7 @@ import chisel3.util.experimental.BoringUtils
 
 class TOP extends Module{
   val io = IO(new Bundle() {
-    val dmaster = new AXIIO
+    val dmaster = new AXIIO(64,32,4)
   })
 
   val cgraFullIns = Module(new CGRAFull)

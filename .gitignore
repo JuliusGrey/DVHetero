@@ -1,3 +1,4 @@
 build/
 *.vcd
 obj_dir/
+obj_dir/git statu

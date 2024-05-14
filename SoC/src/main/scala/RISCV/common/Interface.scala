@@ -172,39 +172,40 @@ object Interface {
   }
 
 
-  class AXIIO extends Bundle {
+  class AXIIO (val dataW :Int, val addrW :Int , val idW :Int)  extends Bundle {
+
     val awready = Input(Bool())
     val awvalid = Output(Bool())
-    val awid = Output(UInt(4.W))
-    val awaddr = Output(UInt(32.W))
+    val awid = Output(UInt(idW.W))
+    val awaddr = Output(UInt(addrW.W))
     val awlen = Output(UInt(8.W))
     val awsize = Output(UInt(3.W))
     val awburst = Output(UInt(2.W))
 
     val wready = Input(Bool())
     val wvalid = Output(Bool())
-    val wdata = Output(UInt(64.W))
-    val wstrb = Output(UInt(8.W))
+    val wdata = Output(UInt(dataW.W))
+    val wstrb = Output(UInt((dataW/8).W))
     val wlast = Output(Bool())
 
     val bready = Output(Bool())
     val bvalid = Input(Bool())
-    val bid = Input(UInt(4.W))
+    val bid = Input(UInt(idW.W))
     val bresp = Input(UInt(2.W))
 
     val arready = Input(Bool())
     val arvalid = Output(Bool())
-    val arid = Output(UInt(4.W))
-    val araddr = Output(UInt(32.W))
+    val arid = Output(UInt(idW.W))
+    val araddr = Output(UInt(addrW.W))
     val arlen = Output(UInt(8.W))
     val arsize = Output(UInt(3.W))
     val arburst = Output(UInt(2.W))
 
     val rready = Output(Bool())
     val rvalid = Input(Bool())
-    val rid = Input(UInt(4.W))
+    val rid = Input(UInt(idW.W))
     val rresp = Input(UInt(2.W))
-    val rdata = Input(UInt(64.W))
+    val rdata = Input(UInt(dataW.W))
     val rlast = Input(Bool())
 
 

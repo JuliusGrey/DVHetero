@@ -8,7 +8,7 @@ import RISCV.common.Param.{AXIID, addrW, dataW}
 class AXI4 extends Module{
   val io = IO (new Bundle {
 
-    val axiIO = new AXIIO
+    val axiIO = new AXIIO(64,32,4)
     val vrIO = new cpuRWIO(dataW , addrW )
   } )
   def AXI_BURST_TYPE_INCR = 1.U(2.W)

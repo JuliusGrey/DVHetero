@@ -13,7 +13,7 @@ import RISCV.common.Param.{SRAMaddrW, SRAMdataW, addrW, dataW}
 class ysyx_041728 extends Module{
   val io = IO(new Bundle() {
 //    val imaster = new AXIIO
-    val dmaster = new AXIIO
+    val dmaster = new AXIIO(64,32,4)
     val mmio = Flipped (new cpuRWIO(dataW , addrW ))
 
     //val instIO = Flipped(new cpuRWIO(dataW, addrW))

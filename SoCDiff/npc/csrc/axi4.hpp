@@ -8,7 +8,8 @@
 #define AUTO_SIG(name, msb, lsb) \
     typename std::conditional <(msb-lsb+1) <=  8, CData, \
     typename std::conditional <(msb-lsb+1) <= 16, SData, \
-    typename std::conditional <(msb-lsb+1) <= 32, IData, QData >::type >::type >::type name
+    typename std::conditional <(msb-lsb+1) <= 32, IData, \
+    typename std::conditional <(msb-lsb+1) <= 64, QData, WData[8] >::type >::type >::type >::type name
 
 #define AUTO_IN(name, msb, lsb)  AUTO_SIG(name, msb, lsb)
 #define AUTO_OUT(name, msb, lsb) AUTO_SIG(name, msb, lsb)
@@ -221,7 +222,17 @@ struct axi4 {
         awburst = ref.awburst;
         awvalid = ref.awvalid;
         // w
-        wdata   = ref.wdata;
+    if constexpr (D_WIDTH>64){
+        wdata[0]   = ref.wdata[0];
+        wdata[1]   = ref.wdata[1];
+        wdata[2]   = ref.wdata[2];
+        wdata[3]   = ref.wdata[3];
+        wdata[4]   = ref.wdata[4];
+        wdata[5]   = ref.wdata[5];
+        wdata[6]   = ref.wdata[6];
+        wdata[7]   = ref.wdata[7];}
+     else
+           wdata   = ref.wdata;  
         wstrb   = ref.wstrb;
         wlast   = ref.wlast;
         wvalid  = ref.wvalid;
@@ -245,7 +256,17 @@ struct axi4 {
         ref.bvalid  = bvalid;
         ref.arready = arready;
         ref.rid     = rid;
-        ref.rdata   = rdata;
+        if constexpr (D_WIDTH >64){
+        ref.rdata[0]   = rdata[0];
+        ref.rdata[1]   = rdata[1];
+        ref.rdata[2]   = rdata[2];
+        ref.rdata[3]   = rdata[3];
+        ref.rdata[4]   = rdata[4];
+        ref.rdata[5]   = rdata[5];
+        ref.rdata[6]   = rdata[6];
+        ref.rdata[7]   = rdata[7];}
+        else
+        ref.rdata =rdata;      
         ref.rresp   = rresp;
         ref.rlast   = rlast;
         ref.rvalid  = rvalid;

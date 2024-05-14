@@ -15,4 +15,18 @@ object paramG {
   def cgraFC = true
   def memIP = true
 
+
+  def addrIn256 = "h02010000".U
+  val addrOut256 = "h02010040".U
+  def addrCfg256 = "h02010080".U
+  def addrDelay256 = "h02010090".U
+
+
+
+  def addrCGRAbase = addrIn256
+  def addrCGRAHigh = "h020100a0".U
+
+  val clintLow = "h2000000"
+  val clintHigh = "h200BFFF"
+
 }

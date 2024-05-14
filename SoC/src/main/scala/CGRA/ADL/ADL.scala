@@ -1,5 +1,6 @@
 package CGRA.ADL
 
+import CGRA.IR.Info2Xml.dumpIR
 import CGRA.module.ModuleInfo
 import CGRA.module.DumpInfo.infooutput
 import CGRA.module.TopModule.topGen
@@ -172,20 +173,27 @@ object ADL {
 
 object ADLTest extends App{
 
-  val mux0 = new ADL.EleTrace("mux0",TYPE_Multiplexer.id,List("in0", "in1", "in2", "in3"),List("out"),List(4, 32))
-  val test = new ADL.ModuleTrace("test" , "TOP", "TEST", 32)
-  test.addEle(mux0)
-  test.inPorts =List("in0", "in1", "in2", "in3")
-  test.outPorts = List("out")
+  val mux0 = new ADL.EleTrace("mux0",TYPE_Multiplexer.id,
+    List("in0", "in1", "in2", "in3"),List("out"),List(4, 32))
+  val PETest = new ADL.ModuleTrace(
+    "PETest" , "PETest", "PETest", 32,
+      List("in0", "in1", "in2", "in3"),List("out")
+  )
+  PETest.addEle(mux0)
+  for(i <- 0 until 4){
+    PETest.addConnect(("this", "in" + i.toString), ("mux0", "in"+i.toString))
+  }
+  PETest.addConnect(("mux0", "out"), ("this", "out"))
 
-  test.addConnect(("this", "in0"), ("mux0", "in0"))
-  test.addConnect(("this", "in1"), ("mux0", "in1"))
-  test.addConnect(("this", "in2"), ("mux0", "in2"))
-  test.addConnect(("this", "in3"), ("mux0", "in3"))
-  test.addConnect(("mux0", "out"), ("this", "out"))
+
+//  PETest.addConnect(("this", "in0"), ("mux0", "in0"))
+//  PETest.addConnect(("this", "in1"), ("mux0", "in1"))
+//  PETest.addConnect(("this", "in2"), ("mux0", "in2"))
+//  PETest.addConnect(("this", "in3"), ("mux0", "in3"))
+//  PETest.addConnect(("mux0", "out"), ("this", "out"))
 
 
-  infooutput("test1.scala", test.getModuleInfo())
-////  dumpIR(test.getModuleInfo(),"text.xml","top")
+  infooutput("PETest.scala", PETest.getModuleInfo())
+  dumpIR(PETest.getModuleInfo(),"PETest.xml","top")
 //  chisel3.Driver.execute(args,() => topGen(test.getModuleInfo(), "test.txt") )//生成verilog
 }

@@ -66,7 +66,13 @@ object CGRAParam {
   }
 
 
-  class CGRAFCParam(inNum_ : Int, outNum_ : Int ,dirNum_ :Int, PENums_ : List[Int] ,hasReg_ :Boolean ,width_ : Int){
+  class CGRAFCParam(
+       inNum_ : Int,
+       outNum_ : Int ,
+       dirNum_ :Int,
+       PENums_ : List[Int] ,
+       hasReg_ :Boolean ,
+       width_ : Int){
     val inNum = inNum_
     val outNum =outNum_
     val dirNum = dirNum_

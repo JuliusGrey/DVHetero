@@ -74,7 +74,9 @@ struct gpu_canvas {
 //CGRA
 void CGRACfg(int lenCfg ,void* cfgData);
 void CGRAInput(int lenCfg , void* dataIn,long long int mask);
-void CGRAWR(void* srcR , void* dstR , long long int lenR,void* srcW , void* dstW , long long int lenW);
+void CGRAWR(void* from_host , void* to_CGRA , long long int lenRBatch,long long int lenRTotal,void* to_host , void* from_CGRA , long long int lenWBath,long long int lenWTotal);
+void CGRAW(long long int lenBatch ,long long int lenTotal ,void* Data,long long int maskIn , long long int maskOut);
+void CGRAR(long long int lenBatch ,long long int lenTotal ,void* Data,long long int mask);
 // void CGRAWRTest(uint32_t dataIn[] , uint64_t dataOut[]);
 // uint32_t getCgraOut4();
 void ptintfInt(uint32_t data);
